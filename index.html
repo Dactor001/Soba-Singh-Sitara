@@ -115,16 +115,16 @@
     .lang-switch-wrapper {
       display: flex;
       justify-content: center;
-      margin-bottom: 20px; /* Space before links start */
-      height: 20px; /* Fixed minimal height */
+      margin-bottom: 20px;
+      height: 20px;
       position: relative;
-      top: 2px; /* Slight nudge down */
+      top: 2px;
     }
 
     .toggle-switch {
       position: relative;
-      width: 36px;  /* Extremely Small Width */
-      height: 20px; /* Extremely Small Height */
+      width: 36px;  /* Same width */
+      height: 20px; /* Same height */
       background-color: #1a1a1a;
       border: 1px solid #333;
       border-radius: 20px;
@@ -137,19 +137,23 @@
       position: absolute;
       top: 1px;
       left: 2px;
-      width: 16px; /* Micro Knob */
+      width: 16px; 
       height: 16px;
       background-color: #973222;
       border-radius: 50%;
       color: white;
-      font-size: 9px; /* Micro Font */
+      
+      /* DEFAULT FONT SIZE FOR 'A' */
+      font-size: 9px; 
+      
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
       box-shadow: 0 1px 2px rgba(0,0,0,0.5);
-      user-select: none; 
+      user-select: none;
+      line-height: 1; /* Helps centering */
     }
 
     /* State when Active (Punjabi) */
@@ -159,8 +163,13 @@
     }
 
     .toggle-switch.active .toggle-knob {
-      /* Move right: 36px(W) - 16px(Knob) - 2px(L) - 2px(R) = 16px move */
       transform: translateX(16px); 
+    }
+    
+    /* SPECIAL CLASS FOR PUNJABI FONT SIZE */
+    .toggle-knob.punjabi-font {
+      font-size: 13px !important; /* Force bigger size for ੳ */
+      padding-bottom: 2px; /* Slight adjustment for visual center */
     }
 
     /* Links */
@@ -320,12 +329,18 @@
       if (!isEnglish) {
         // Switch to PUNJABI
         langSwitch.classList.add('active'); 
-        setTimeout(() => { langKnob.textContent = "ਪ"; }, 100); 
+        setTimeout(() => { 
+            langKnob.textContent = "ੳ"; 
+            langKnob.classList.add('punjabi-font'); // Add class to increase size
+        }, 100); 
 
       } else {
         // Switch to ENGLISH
         langSwitch.classList.remove('active'); 
-        setTimeout(() => { langKnob.textContent = "A"; }, 100);
+        setTimeout(() => { 
+            langKnob.textContent = "A"; 
+            langKnob.classList.remove('punjabi-font'); // Remove class to reset size
+        }, 100);
       }
 
       // Change Title text after fade out
