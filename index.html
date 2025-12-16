@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dhadi Jatha Soba Singh Sitara</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gurmukhi:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     /* Super AMOLED Black Background Setup */
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Poppins', 'Noto Sans Gurmukhi', sans-serif;
       background-color: #000000; /* Pure Black */
       color: #ffffff;
       display: flex;
@@ -22,7 +22,7 @@
       position: relative;
     }
 
-    /* Ambient Background Glow Effect (Kept as requested earlier) */
+    /* Ambient Background Glow Effect */
     .glow-effect {
       position: fixed;
       top: 20%;
@@ -50,7 +50,7 @@
       z-index: 1;
     }
     
-    /* Fixed Round Profile Picture Styling */
+    /* Profile Picture Styling */
     .profile-pic-container {
       display: flex;
       justify-content: center;
@@ -63,7 +63,6 @@
       object-fit: cover;
       border-radius: 50%;
       border: 3px solid #973222; 
-      /* Pulse Animation for Profile */
       animation: border-pulse 3s infinite;
       display: block;
       background-color: #000;
@@ -75,27 +74,96 @@
       100% { box-shadow: 0 0 0 0 rgba(151, 50, 34, 0); }
     }
 
-    /* Standard Typography - No Shimmer */
+    /* Title Styling */
+    .title-container {
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5px;
+    }
+
     .title { 
       font-size: 26px; 
       font-weight: 700; 
       letter-spacing: 0.5px;
-      margin-bottom: 5px;
       text-transform: uppercase;
-      color: #ffffff; /* Pure White */
+      color: #ffffff;
+      line-height: 1.3;
+      transition: opacity 0.4s ease, filter 0.4s ease;
+      opacity: 1;
+      filter: blur(0px);
     }
     
+    .title.switching {
+      opacity: 0;
+      filter: blur(5px);
+    }
+    
+    /* Subtitle adjustment */
     .subtitle { 
       font-size: 13px; 
       opacity: 0.8; 
-      margin-bottom: 35px; 
+      margin-bottom: 8px; /* Very tight bottom margin */
       font-weight: 300;
       letter-spacing: 1px;
       text-transform: uppercase;
       color: #ffffff;
     }
 
-    /* Links - Round Shape */
+    /* --- MICRO TOGGLE SWITCH --- */
+    .lang-switch-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px; /* Space before links start */
+      height: 20px; /* Fixed minimal height */
+      position: relative;
+      top: 2px; /* Slight nudge down */
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 36px;  /* Extremely Small Width */
+      height: 20px; /* Extremely Small Height */
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    /* The sliding knob (Circle) */
+    .toggle-knob {
+      position: absolute;
+      top: 1px;
+      left: 2px;
+      width: 16px; /* Micro Knob */
+      height: 16px;
+      background-color: #973222;
+      border-radius: 50%;
+      color: white;
+      font-size: 9px; /* Micro Font */
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      user-select: none; 
+    }
+
+    /* State when Active (Punjabi) */
+    .toggle-switch.active {
+      border-color: #555;
+      background-color: #2a2a2a;
+    }
+
+    .toggle-switch.active .toggle-knob {
+      /* Move right: 36px(W) - 16px(Knob) - 2px(L) - 2px(R) = 16px move */
+      transform: translateX(16px); 
+    }
+
+    /* Links */
     .link {
       display: flex;
       align-items: center;
@@ -114,7 +182,6 @@
       animation: fadeInUp 0.8s ease backwards;
     }
 
-    /* Staggered Animation Delays */
     .link:nth-child(3) { animation-delay: 0.1s; }
     .link:nth-child(4) { animation-delay: 0.2s; }
     .link:nth-child(5) { animation-delay: 0.3s; }
@@ -127,7 +194,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Icon Styling */
     .link i { 
       color: #973222; 
       font-size: 20px;
@@ -137,24 +203,17 @@
       z-index: 10;
     }
     
-    .link span {
-      position: relative;
-      z-index: 5;
-    }
+    .link span { position: relative; z-index: 5; }
 
-    /* Hover Effect */
     .link:hover { 
       border-color: #973222;
       background-color: #0a0a0a;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(151, 50, 34, 0.4);
     }
-    
-    .link:hover i { 
-      color: #ffffff; 
-    }
+    .link:hover i { color: #ffffff; }
 
-    /* Footer Styling */
+    /* Footer */
     .footer {
       margin-top: 40px;
       font-size: 12px;
@@ -163,7 +222,6 @@
       animation: fadeInUp 1s ease backwards;
       animation-delay: 0.8s;
     }
-    
     .footer a {
       color: #ffffff;
       text-decoration: none;
@@ -175,32 +233,33 @@
       padding: 0;
       transition: opacity 0.3s ease;
     }
-
-    .footer a:hover {
-      opacity: 1;
-      color: #973222;
-    }
-
-    .footer i {
-      color: #973222;
-    }
+    .footer a:hover { opacity: 1; color: #973222; }
+    .footer i { color: #973222; }
   </style>
 </head>
 <body>
   
-  <!-- Background Glow Element -->
   <div class="glow-effect"></div>
 
   <div class="card">
     
-    <!-- Profile Picture Section -->
     <div class="profile-pic-container">
-        <!-- Ensure file is named 'profile.jpg' -->
+        <!-- Ensure profile.jpg exists -->
         <img src="profile.jpg" alt="Dhadi Jatha Soba Singh Sitara" class="profile-pic">
     </div>
 
-    <div class="title">Dhadi Jatha Soba Singh Sitara</div>
+    <div class="title-container">
+      <div class="title" id="mainTitle">Dhadi Jatha<br>Soba Singh Sitara</div>
+    </div>
+    
     <div class="subtitle">Official Social Links</div>
+
+    <!-- Micro Sliding Switch -->
+    <div class="lang-switch-wrapper">
+      <div class="toggle-switch" onclick="toggleLanguage()" id="langSwitch">
+        <div class="toggle-knob" id="langKnob">A</div>
+      </div>
+    </div>
     
     <a class="link" href="https://youtube.com/@sobasinghsitara">
       <i class="fab fa-youtube"></i>
@@ -232,7 +291,6 @@
       <span>Spotify</span>
     </a>
 
-    <!-- Footer Section -->
     <div class="footer">
       <a href="https://www.instagram.com/dactor.in/" target="_blank">
         <i class="fab fa-instagram"></i> 
@@ -243,27 +301,58 @@
   </div>
 
   <script>
-    // Fullscreen logic
-    document.addEventListener('click', function() {
-      var elem = document.documentElement;
+    // Logic for Micro Toggle
+    const titleElement = document.getElementById('mainTitle');
+    const langSwitch = document.getElementById('langSwitch');
+    const langKnob = document.getElementById('langKnob');
+
+    let isEnglish = true;
+
+    const textEn = "Dhadi Jatha<br>Soba Singh Sitara";
+    const textPa = "ਢਾਡੀ ਜਥਾ<br>ਸੋਭਾ ਸਿੰਘ ਸਿਤਾਰਾ";
+
+    function toggleLanguage() {
+      // Fade title out slightly
+      titleElement.classList.add('switching');
       
+      isEnglish = !isEnglish;
+      
+      if (!isEnglish) {
+        // Switch to PUNJABI
+        langSwitch.classList.add('active'); 
+        setTimeout(() => { langKnob.textContent = "ਪ"; }, 100); 
+
+      } else {
+        // Switch to ENGLISH
+        langSwitch.classList.remove('active'); 
+        setTimeout(() => { langKnob.textContent = "A"; }, 100);
+      }
+
+      // Change Title text after fade out
+      setTimeout(() => {
+        if (!isEnglish) {
+          titleElement.innerHTML = textPa;
+        } else {
+          titleElement.innerHTML = textEn;
+        }
+        titleElement.classList.remove('switching');
+      }, 300);
+    }
+
+    // Fullscreen logic
+    document.addEventListener('click', function(e) {
+      if(e.target.closest('a') || e.target.closest('.toggle-switch')) return;
+
+      var elem = document.documentElement;
       if (!document.fullscreenElement && !document.mozFullScreenElement &&
           !document.webkitFullscreenElement && !document.msFullscreenElement) {
-          
         if (elem.requestFullscreen) {
-          elem.requestFullscreen().catch(err => {
-            console.log(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-          });
-        } else if (elem.msRequestFullscreen) {
-          elem.msRequestFullscreen();
-        } else if (elem.mozRequestFullScreen) {
-          elem.mozRequestFullScreen();
-        } else if (elem.webkitRequestFullscreen) {
-          elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+          elem.requestFullscreen().catch(err => console.log(err));
         }
       }
     });
   </script>
 </body>
 </html>
+
 
