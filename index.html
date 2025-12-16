@@ -7,16 +7,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
+    /* Super AMOLED Black Background Setup */
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: #0f0f0f;
+      background-color: #000000; /* Pure Black for AMOLED */
       color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
     }
+
     .card {
       max-width: 420px;
       padding: 30px 20px;
@@ -24,43 +26,85 @@
       width: 100%;
     }
     
-    /* ਪ੍ਰੋਫਾਈਲ ਫੋਟੋ ਲਈ ਨਵੀਂ ਸਟਾਈਲਿੰਗ */
-    /* New styling for Profile Picture */
-    .profile-pic {
-      width: 120px;          /* Width */
-      height: 120px;         /* Height (Equal to width for 1:1 ratio) */
-      object-fit: cover;     /* Ensures image covers the area without distortion */
-      border-radius: 50%;    /* Makes it round */
-      border: 3px solid #973222; /* Border color matching the theme */
-      margin-bottom: 15px;   /* Space below the image */
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* Subtle shadow */
+    /* Fixed Round Profile Picture Styling */
+    .profile-pic-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
     }
 
-    .title { font-size: 22px; font-weight: 600; }
-    .subtitle { font-size: 14px; opacity: 0.85; margin-bottom: 25px; }
+    .profile-pic {
+      width: 130px;          /* Size slightly increased */
+      height: 130px;         /* Must match width for perfect circle */
+      object-fit: cover;     /* Crops image perfectly to fit circle */
+      border-radius: 50%;    /* Makes it perfectly round */
+      border: 3px solid #973222; 
+      box-shadow: 0 0 20px rgba(151, 50, 34, 0.3); /* Adds a subtle glow */
+      display: block;        /* Ensures no layout distortion */
+    }
+
+    .title { 
+      font-size: 24px; 
+      font-weight: 600; 
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+    
+    .subtitle { 
+      font-size: 14px; 
+      opacity: 0.7; 
+      margin-bottom: 30px; 
+      font-weight: 300;
+    }
+
     .link {
       display: flex;
+      align-items: center;
       justify-content: center;
       gap: 12px;
       text-decoration: none;
-      border: 2px solid #973222;
-      color: #fff;
-      padding: 14px;
-      margin-bottom: 14px;
-      border-radius: 12px;
+      background-color: #000000; /* Black background */
+      border: 1px solid #333333; /* Subtle grey border */
+      color: #ffffff;
+      padding: 16px;
+      margin-bottom: 16px;
+      border-radius: 50px; /* Fully rounded buttons */
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .link i { color: #973222; }
-    .link:hover { background: #973222; }
+
+    /* Icon Styling */
+    .link i { 
+      color: #973222; 
+      font-size: 20px;
+      position: absolute;
+      left: 20px;
+    }
+
+    /* Hover Effect - Makes it pop on AMOLED */
+    .link:hover { 
+      border-color: #973222;
+      background-color: #0a0a0a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(151, 50, 34, 0.4);
+    }
+
     .link:hover i { color: #ffffff; }
+
   </style>
 </head>
 <body>
   <div class="card">
     
-    <!-- Profile Image Placeholder -->
-    <!-- Replace the src URL with your actual photo URL -->
-    <img src="https://via.placeholder.com/150" alt="Profile Photo" class="profile-pic">
+    <!-- Profile Picture Section -->
+    <div class="profile-pic-container">
+        <!-- 
+           Note: Ensure your uploaded file is named 'profile.jpg' 
+           or change the src below to match your filename.
+        -->
+        <img src="profile.jpg" alt="Dhadi Jatha Soba Singh Sitara" class="profile-pic">
+    </div>
 
     <div class="title">Dhadi Jatha Soba Singh Sitara</div>
     <div class="subtitle">Official Social Links</div>
@@ -73,4 +117,5 @@
   </div>
 </body>
 </html>
+
 
