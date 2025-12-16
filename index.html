@@ -21,7 +21,21 @@
       max-width: 420px;
       padding: 30px 20px;
       text-align: center;
+      width: 100%;
     }
+    
+    /* ਪ੍ਰੋਫਾਈਲ ਫੋਟੋ ਲਈ ਨਵੀਂ ਸਟਾਈਲਿੰਗ */
+    /* New styling for Profile Picture */
+    .profile-pic {
+      width: 120px;          /* Width */
+      height: 120px;         /* Height (Equal to width for 1:1 ratio) */
+      object-fit: cover;     /* Ensures image covers the area without distortion */
+      border-radius: 50%;    /* Makes it round */
+      border: 3px solid #973222; /* Border color matching the theme */
+      margin-bottom: 15px;   /* Space below the image */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* Subtle shadow */
+    }
+
     .title { font-size: 22px; font-weight: 600; }
     .subtitle { font-size: 14px; opacity: 0.85; margin-bottom: 25px; }
     .link {
@@ -34,16 +48,23 @@
       padding: 14px;
       margin-bottom: 14px;
       border-radius: 12px;
+      transition: all 0.3s ease;
     }
     .link i { color: #973222; }
     .link:hover { background: #973222; }
-    .link:hover i { color: #8a8888; }
+    .link:hover i { color: #ffffff; }
   </style>
 </head>
 <body>
   <div class="card">
+    
+    <!-- Profile Image Placeholder -->
+    <!-- Replace the src URL with your actual photo URL -->
+    <img src="https://via.placeholder.com/150" alt="Profile Photo" class="profile-pic">
+
     <div class="title">Dhadi Jatha Soba Singh Sitara</div>
     <div class="subtitle">Official Social Links</div>
+    
     <a class="link" href="https://youtube.com/@sobasinghsitara"><i class="fab fa-youtube"></i>YouTube</a>
     <a class="link" href="https://www.facebook.com/share/1DUBKj8yUk/"><i class="fab fa-facebook"></i>Facebook</a>
     <a class="link" href="https://www.instagram.com/sobasinghsitara"><i class="fab fa-instagram"></i>Instagram</a>
@@ -52,3 +73,4 @@
   </div>
 </body>
 </html>
+
