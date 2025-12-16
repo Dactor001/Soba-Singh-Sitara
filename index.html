@@ -84,15 +84,25 @@
     }
 
     .title { 
-      font-size: 26px; 
+      /* Slightly reduced font size to fit "Dhadi Jatha Soba Singh" on one line */
+      font-size: 22px; 
       font-weight: 700; 
       letter-spacing: 0.5px;
       text-transform: uppercase;
       color: #ffffff;
-      line-height: 1.3;
+      line-height: 1.4;
       transition: opacity 0.4s ease, filter 0.4s ease;
       opacity: 1;
       filter: blur(0px);
+      white-space: nowrap; /* Tries to keep the long name on one line if possible */
+    }
+    
+    /* Fallback for very small screens to allow wrapping if needed */
+    @media (max-width: 360px) {
+      .title {
+        white-space: normal;
+        font-size: 20px;
+      }
     }
     
     .title.switching {
@@ -123,8 +133,8 @@
 
     .toggle-switch {
       position: relative;
-      width: 36px;  /* Same width */
-      height: 20px; /* Same height */
+      width: 36px;
+      height: 20px;
       background-color: #1a1a1a;
       border: 1px solid #333;
       border-radius: 20px;
@@ -142,10 +152,7 @@
       background-color: #973222;
       border-radius: 50%;
       color: white;
-      
-      /* DEFAULT FONT SIZE FOR 'A' */
       font-size: 9px; 
-      
       font-weight: bold;
       display: flex;
       align-items: center;
@@ -153,7 +160,7 @@
       transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
       box-shadow: 0 1px 2px rgba(0,0,0,0.5);
       user-select: none;
-      line-height: 1; /* Helps centering */
+      line-height: 1;
     }
 
     /* State when Active (Punjabi) */
@@ -168,8 +175,8 @@
     
     /* SPECIAL CLASS FOR PUNJABI FONT SIZE */
     .toggle-knob.punjabi-font {
-      font-size: 13px !important; /* Force bigger size for ੳ */
-      padding-bottom: 2px; /* Slight adjustment for visual center */
+      font-size: 13px !important;
+      padding-bottom: 2px;
     }
 
     /* Links */
@@ -258,7 +265,7 @@
     </div>
 
     <div class="title-container">
-      <div class="title" id="mainTitle">Dhadi Jatha<br>Soba Singh Sitara</div>
+      <div class="title" id="mainTitle">Dhadi Jatha Soba Singh<br>Sitara</div>
     </div>
     
     <div class="subtitle">Official Social Links</div>
@@ -317,8 +324,9 @@
 
     let isEnglish = true;
 
-    const textEn = "Dhadi Jatha<br>Soba Singh Sitara";
-    const textPa = "ਢਾਡੀ ਜਥਾ<br>ਸੋਭਾ ਸਿੰਘ ਸਿਤਾਰਾ";
+    // Updated Line Breaks as requested
+    const textEn = "Dhadi Jatha Soba Singh<br>Sitara";
+    const textPa = "ਢਾਡੀ ਜਥਾ ਸੋਭਾ ਸਿੰਘ<br>ਸਿਤਾਰਾ";
 
     function toggleLanguage() {
       // Fade title out slightly
@@ -331,7 +339,7 @@
         langSwitch.classList.add('active'); 
         setTimeout(() => { 
             langKnob.textContent = "ੳ"; 
-            langKnob.classList.add('punjabi-font'); // Add class to increase size
+            langKnob.classList.add('punjabi-font'); 
         }, 100); 
 
       } else {
@@ -339,7 +347,7 @@
         langSwitch.classList.remove('active'); 
         setTimeout(() => { 
             langKnob.textContent = "A"; 
-            langKnob.classList.remove('punjabi-font'); // Remove class to reset size
+            langKnob.classList.remove('punjabi-font'); 
         }, 100);
       }
 
