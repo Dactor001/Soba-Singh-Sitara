@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dhadi Jatha Soba Singh Sitara</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -11,7 +11,7 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #000000;
+      background-color: #000000; /* Pure Black */
       color: #ffffff;
       display: flex;
       justify-content: center;
@@ -20,11 +20,9 @@
       overflow-x: hidden;
       -webkit-tap-highlight-color: transparent;
       position: relative;
-      touch-action: pan-y;
-      perspective: 1000px; /* Essential for 3D effect */
     }
 
-    /* Ambient Background Glow */
+    /* Ambient Background Glow Effect (Kept as requested earlier) */
     .glow-effect {
       position: fixed;
       top: 20%;
@@ -32,7 +30,7 @@
       transform: translate(-50%, -50%);
       width: 300px;
       height: 300px;
-      background: radial-gradient(circle, rgba(151, 50, 34, 0.2) 0%, rgba(0,0,0,0) 70%);
+      background: radial-gradient(circle, rgba(151, 50, 34, 0.15) 0%, rgba(0,0,0,0) 70%);
       pointer-events: none;
       z-index: -1;
       animation: pulse-glow 4s infinite alternate;
@@ -50,18 +48,13 @@
       width: 100%;
       position: relative;
       z-index: 1;
-      transform-style: preserve-3d; /* Allows children to float in 3D */
-      transition: transform 0.1s ease-out; /* Smooths out sensor jitter */
     }
     
+    /* Fixed Round Profile Picture Styling */
     .profile-pic-container {
       display: flex;
       justify-content: center;
       margin-bottom: 25px;
-      position: relative;
-      z-index: 2;
-      transform-style: preserve-3d;
-      transform: translateZ(30px); /* Lifts profile pic forward */
     }
 
     .profile-pic {
@@ -69,11 +62,11 @@
       height: 140px;
       object-fit: cover;
       border-radius: 50%;
-      border: 3px solid rgba(151, 50, 34, 0.8); 
+      border: 3px solid #973222; 
+      /* Pulse Animation for Profile */
       animation: border-pulse 3s infinite;
       display: block;
       background-color: #000;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     @keyframes border-pulse {
@@ -82,214 +75,195 @@
       100% { box-shadow: 0 0 0 0 rgba(151, 50, 34, 0); }
     }
 
+    /* Standard Typography - No Shimmer */
     .title { 
       font-size: 26px; 
       font-weight: 700; 
+      letter-spacing: 0.5px;
       margin-bottom: 5px;
       text-transform: uppercase;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-      transform: translateZ(20px); /* Lifts text */
+      color: #ffffff; /* Pure White */
     }
     
     .subtitle { 
       font-size: 13px; 
       opacity: 0.8; 
       margin-bottom: 35px; 
+      font-weight: 300;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      transform: translateZ(20px);
+      color: #ffffff;
     }
 
-    /* LIQUID GLASS BUTTONS */
+    /* Links - Round Shape */
     .link {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
       text-decoration: none;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      background-color: #000000;
+      border: 1px solid #333333;
       color: #ffffff;
       padding: 16px;
       margin-bottom: 16px;
       border-radius: 50px; 
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-      transform-style: preserve-3d;
-      transform: translateZ(0px); /* Start flat */
-      transition: all 0.2s ease;
-      will-change: transform;
+      animation: fadeInUp 0.8s ease backwards;
     }
 
-    /* Glossy Shine */
-    .link::after {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        to bottom right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0) 40%,
-        rgba(255, 255, 255, 0.1) 50%,
-        rgba(255, 255, 255, 0) 60%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      transform: rotate(30deg);
-      pointer-events: none;
+    /* Staggered Animation Delays */
+    .link:nth-child(3) { animation-delay: 0.1s; }
+    .link:nth-child(4) { animation-delay: 0.2s; }
+    .link:nth-child(5) { animation-delay: 0.3s; }
+    .link:nth-child(6) { animation-delay: 0.4s; }
+    .link:nth-child(7) { animation-delay: 0.5s; }
+    .link:nth-child(8) { animation-delay: 0.6s; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Icon Styling */
     .link i { 
       color: #973222; 
-      font-size: 22px;
+      font-size: 20px;
       position: absolute;
       left: 20px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+      transition: transform 0.3s ease;
+      z-index: 10;
     }
     
+    .link span {
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Hover Effect */
     .link:hover { 
-      background: rgba(151, 50, 34, 0.2);
-      border-color: rgba(151, 50, 34, 0.5);
-      transform: scale(1.02) translateZ(10px);
+      border-color: #973222;
+      background-color: #0a0a0a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(151, 50, 34, 0.4);
+    }
+    
+    .link:hover i { 
+      color: #ffffff; 
     }
 
-    /* Tap hint for iOS users */
-    #tap-hint {
-      position: fixed;
-      bottom: 20px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      font-size: 10px;
-      opacity: 0.5;
-      pointer-events: none;
-      z-index: 0;
-    }
-
+    /* Footer Styling */
     .footer {
       margin-top: 40px;
       font-size: 12px;
+      letter-spacing: 1px;
       opacity: 0.7;
+      animation: fadeInUp 1s ease backwards;
+      animation-delay: 0.8s;
     }
-    .footer a { color: #fff; text-decoration: none; }
+    
+    .footer a {
+      color: #ffffff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: none; 
+      padding: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer a:hover {
+      opacity: 1;
+      color: #973222;
+    }
+
+    .footer i {
+      color: #973222;
+    }
   </style>
 </head>
 <body>
   
+  <!-- Background Glow Element -->
   <div class="glow-effect"></div>
 
-  <div class="card" id="tiltCard">
+  <div class="card">
     
+    <!-- Profile Picture Section -->
     <div class="profile-pic-container">
         <!-- Ensure file is named 'profile.jpg' -->
-        <img src="profile.jpg" alt="Profile" class="profile-pic" id="profilePic">
+        <img src="profile.jpg" alt="Dhadi Jatha Soba Singh Sitara" class="profile-pic">
     </div>
 
     <div class="title">Dhadi Jatha Soba Singh Sitara</div>
     <div class="subtitle">Official Social Links</div>
     
-    <a class="link tilt-btn" href="https://youtube.com/@sobasinghsitara">
-      <i class="fab fa-youtube"></i><span>YouTube</span>
+    <a class="link" href="https://youtube.com/@sobasinghsitara">
+      <i class="fab fa-youtube"></i>
+      <span>YouTube</span>
     </a>
-    <a class="link tilt-btn" href="https://www.facebook.com/share/1DUBKj8yUk/">
-      <i class="fab fa-facebook"></i><span>Facebook</span>
+    
+    <a class="link" href="https://www.facebook.com/share/1DUBKj8yUk/">
+      <i class="fab fa-facebook"></i>
+      <span>Facebook</span>
     </a>
-    <a class="link tilt-btn" href="https://www.instagram.com/sobasinghsitara">
-      <i class="fab fa-instagram"></i><span>Instagram</span>
+    
+    <a class="link" href="https://www.instagram.com/sobasinghsitara">
+      <i class="fab fa-instagram"></i>
+      <span>Instagram</span>
     </a>
-    <a class="link tilt-btn" href="https://wa.me/919888861222">
-      <i class="fab fa-whatsapp"></i><span>WhatsApp</span>
+    
+    <a class="link" href="https://wa.me/919888861222">
+      <i class="fab fa-whatsapp"></i>
+      <span>WhatsApp</span>
     </a>
-    <a class="link tilt-btn" href="https://www.snapchat.com/add/soba.singh">
-      <i class="fab fa-snapchat"></i><span>Snapchat</span>
+    
+    <a class="link" href="https://www.snapchat.com/add/soba.singh">
+      <i class="fab fa-snapchat"></i>
+      <span>Snapchat</span>
     </a>
-    <a class="link tilt-btn" href="https://open.spotify.com/artist/5bEZhDOR9jL5FhLNYaWDqv">
-      <i class="fab fa-spotify"></i><span>Spotify</span>
+    
+    <a class="link" href="https://open.spotify.com/artist/5bEZhDOR9jL5FhLNYaWDqv">
+      <i class="fab fa-spotify"></i>
+      <span>Spotify</span>
     </a>
 
+    <!-- Footer Section -->
     <div class="footer">
       <a href="https://www.instagram.com/dactor.in/" target="_blank">
-        <i class="fab fa-instagram"></i> <span>Made by Doctor</span>
+        <i class="fab fa-instagram"></i> 
+        <span>Made by Doctor</span>
       </a>
     </div>
 
   </div>
 
-  <div id="tap-hint">Tap anywhere to enable motion effects</div>
-
   <script>
-    const card = document.getElementById('tiltCard');
-    const btns = document.querySelectorAll('.tilt-btn');
-    let motionEnabled = false;
-
-    // FUNCTION TO START SENSORS
-    function requestMotionPermission() {
-      if (motionEnabled) return;
-
-      // Check if iOS 13+ permission method exists
-      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-        DeviceOrientationEvent.requestPermission()
-          .then(permissionState => {
-            if (permissionState === 'granted') {
-              window.addEventListener('deviceorientation', handleOrientation);
-              motionEnabled = true;
-              document.getElementById('tap-hint').style.display = 'none';
-            }
-          })
-          .catch(console.error);
-      } else {
-        // Non-iOS devices usually don't need permission, but we add listener on click just in case
-        window.addEventListener('deviceorientation', handleOrientation);
-        motionEnabled = true;
-        document.getElementById('tap-hint').style.display = 'none';
-      }
-    }
-
-    // LISTENER: Start on first click/tap anywhere
-    document.body.addEventListener('click', requestMotionPermission);
-    document.body.addEventListener('touchstart', requestMotionPermission);
-
-    // GYROSCOPE HANDLER
-    function handleOrientation(event) {
-      if (!event.gamma && !event.beta) return;
-
-      // Increased Multiplier (from 0.5 to 1.5) for more visible movement
-      const x = event.gamma * 1.5; // Left/Right tilt
-      const y = (event.beta - 40) * 1.5; // Front/Back tilt (40 is resting angle)
-
-      // Clamp values to prevent flipping
-      const limit = 30;
-      const clampX = Math.max(Math.min(x, limit), -limit);
-      const clampY = Math.max(Math.min(y, limit), -limit);
-
-      // Apply tilt to main card
-      card.style.transform = `rotateY(${-clampX}deg) rotateX(${clampY}deg)`;
-
-      // Apply parallax to buttons (they move differently than card)
-      btns.forEach((btn, i) => {
-        const depth = 20 + (i * 5); // Each button floats at different height
-        btn.style.transform = `translateX(${-clampX}px) translateY(${-clampY}px) translateZ(${depth}px)`;
-      });
-    }
-
-    // DESKTOP MOUSE FALLBACK (For testing on PC)
-    document.addEventListener('mousemove', (e) => {
-      const x = (window.innerWidth / 2 - e.pageX) / 15;
-      const y = (window.innerHeight / 2 - e.pageY) / 15;
+    // Fullscreen logic
+    document.addEventListener('click', function() {
+      var elem = document.documentElement;
       
-      card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
-      btns.forEach((btn, i) => {
-        const depth = 20 + (i * 5);
-        btn.style.transform = `translateX(${-x}px) translateY(${-y}px) translateZ(${depth}px)`;
-      });
+      if (!document.fullscreenElement && !document.mozFullScreenElement &&
+          !document.webkitFullscreenElement && !document.msFullscreenElement) {
+          
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen().catch(err => {
+            console.log(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+          });
+        } else if (elem.msRequestFullscreen) {
+          elem.msRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+          elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+          elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+      }
     });
-
   </script>
 </body>
 </html>
-
 
