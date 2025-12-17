@@ -64,8 +64,11 @@
       height: 140px;
       object-fit: cover;
       
-      /* KEY CHANGE: -8px moves it up by approx 2mm total */
-      object-position: center -8px; 
+      /* KEY CHANGE: 
+         calc(50% + 2px) moves it approx 0.5mm RIGHT.
+         -8px keeps it approx 2mm UP.
+      */
+      object-position: calc(50% + 2px) -8px; 
       
       border-radius: 50%;
       border: 3px solid #973222; 
