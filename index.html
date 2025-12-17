@@ -62,7 +62,7 @@
       width: 140px;
       height: 140px;
       object-fit: cover;
-      /* Position: approx 0.5mm RIGHT, 2mm UP */
+      /* Position maintained: approx 0.5mm RIGHT, 2mm UP */
       object-position: calc(50% + 2px) -8px; 
       border-radius: 50%;
       border: 3px solid #973222; 
@@ -176,6 +176,18 @@
       padding-bottom: 2px;
     }
 
+    /* --- PERMANENT JELLY ANIMATION --- */
+    @keyframes jelly-infinite {
+      0% { transform: scale(1, 1); }
+      10% { transform: scale(1.25, 0.75); }
+      15% { transform: scale(0.75, 1.25); }
+      20% { transform: scale(1.15, 0.85); }
+      25% { transform: scale(0.95, 1.05); }
+      30% { transform: scale(1.05, 0.95); }
+      35% { transform: scale(1, 1); }
+      100% { transform: scale(1, 1); }
+    }
+
     /* Links */
     .link {
       display: flex;
@@ -184,60 +196,52 @@
       gap: 12px;
       text-decoration: none;
       background-color: #000000;
-      border: 1px solid #ffffff; /* 100% White Border */
+      border: 1px solid #ffffff; 
       color: #ffffff;
       padding: 14px; 
       margin-bottom: 10px; 
       border-radius: 50px; 
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       position: relative;
-      overflow: hidden;
+      overflow: hidden; 
       animation: fadeInUp 0.8s ease backwards;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent; 
     }
 
-    /* Staggered entry animation */
-    .link:nth-child(3) { animation-delay: 0.1s; }
-    .link:nth-child(4) { animation-delay: 0.2s; }
-    .link:nth-child(5) { animation-delay: 0.3s; }
-    .link:nth-child(6) { animation-delay: 0.4s; }
-    .link:nth-child(7) { animation-delay: 0.5s; }
-    .link:nth-child(8) { animation-delay: 0.6s; }
+    /* Main Icon Animation */
+    .link i { 
+      color: #973222; 
+      font-size: 20px; 
+      position: absolute;
+      left: 20px;
+      z-index: 10;
+      animation: jelly-infinite 3s infinite ease-in-out;
+      pointer-events: none; 
+    }
+    
+    /* Staggered JELLY effect indices 5-10 */
+    .link:nth-child(5) i { animation-delay: 0s; }
+    .link:nth-child(6) i { animation-delay: 0.2s; }
+    .link:nth-child(7) i { animation-delay: 0.4s; }
+    .link:nth-child(8) i { animation-delay: 0.6s; }
+    .link:nth-child(9) i { animation-delay: 0.8s; } 
+    .link:nth-child(10) i { animation-delay: 1.0s; } 
+
+    /* Staggered ENTRY animation indices 5-10 */
+    .link:nth-child(5) { animation-delay: 0.1s; }
+    .link:nth-child(6) { animation-delay: 0.2s; }
+    .link:nth-child(7) { animation-delay: 0.3s; }
+    .link:nth-child(8) { animation-delay: 0.4s; }
+    .link:nth-child(9) { animation-delay: 0.5s; } 
+    .link:nth-child(10) { animation-delay: 0.6s; } 
 
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* --- NEW ANIMATIONS --- */
-    
-    /* 1. Floating Animation (Idle) */
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); } /* Moves up slightly */
-    }
-
-    /* 2. Jelly Pop Animation (Hover) */
-    @keyframes jelly {
-      0% { transform: scale(1, 1); }
-      25% { transform: scale(1.25, 0.75); }
-      50% { transform: scale(0.75, 1.25); }
-      75% { transform: scale(1.15, 0.85); }
-      100% { transform: scale(1, 1); }
-    }
-
-    .link i { 
-      color: #973222; 
-      font-size: 20px; 
-      position: absolute;
-      left: 20px;
-      
-      /* Apply Floating Animation */
-      animation: float 3s ease-in-out infinite;
-      
-      z-index: 10;
-    }
-    
-    .link span { position: relative; z-index: 5; }
+    .link span { position: relative; z-index: 5; pointer-events: none; }
 
     /* Hover Effects */
     .link:hover { 
@@ -247,11 +251,28 @@
       box-shadow: 0 4px 12px rgba(151, 50, 34, 0.4);
     }
     
-    /* Change animation on Hover */
-    .link:hover i { 
-      color: #ffffff; 
-      /* Switch to Jelly animation once */
-      animation: jelly 0.6s ease-in-out both; 
+    /* CLICK (Active) Effect */
+    .link:active {
+      transform: scale(0.96) translateY(-2px); 
+      background-color: #111;
+      border-color: #973222;
+    }
+
+    /* --- RIPPLE ANIMATION --- */
+    .ripple {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.3); 
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple-animation 0.6s linear;
+      pointer-events: none;
+    }
+
+    @keyframes ripple-animation {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
     }
 
     /* Footer */
@@ -274,8 +295,15 @@
       padding: 0;
       transition: opacity 0.3s ease;
     }
+    
     .footer a:hover { opacity: 1; color: #973222; }
-    .footer i { color: #973222; }
+    
+    /* Footer Icon Animation */
+    .footer i { 
+      color: #973222; 
+      display: inline-block; /* Required for transform */
+      animation: jelly-infinite 3s infinite ease-in-out; /* Apply Jelly Animation */
+    }
   </style>
 </head>
 <body>
@@ -302,31 +330,37 @@
       </div>
     </div>
     
+    <!-- Link 1 -->
     <a class="link" href="https://youtube.com/@sobasinghsitara">
       <i class="fab fa-youtube"></i>
       <span>YouTube</span>
     </a>
     
+    <!-- Link 2 -->
     <a class="link" href="https://www.facebook.com/share/1DUBKj8yUk/">
       <i class="fab fa-facebook"></i>
       <span>Facebook</span>
     </a>
     
+    <!-- Link 3 -->
     <a class="link" href="https://www.instagram.com/sobasinghsitara">
       <i class="fab fa-instagram"></i>
       <span>Instagram</span>
     </a>
     
+    <!-- Link 4 -->
     <a class="link" href="https://wa.me/919888861222">
       <i class="fab fa-whatsapp"></i>
       <span>WhatsApp</span>
     </a>
     
+    <!-- Link 5 -->
     <a class="link" href="https://www.snapchat.com/add/soba.singh">
       <i class="fab fa-snapchat"></i>
       <span>Snapchat</span>
     </a>
     
+    <!-- Link 6 -->
     <a class="link" href="https://open.spotify.com/artist/5bEZhDOR9jL5FhLNYaWDqv">
       <i class="fab fa-spotify"></i>
       <span>Spotify</span>
@@ -342,7 +376,7 @@
   </div>
 
   <script>
-    // Logic for Micro Toggle
+    // 1. Language Toggle Logic
     const titleElement = document.getElementById('mainTitle');
     const langSwitch = document.getElementById('langSwitch');
     const langKnob = document.getElementById('langKnob');
@@ -354,19 +388,17 @@
 
     function toggleLanguage() {
       titleElement.classList.add('switching');
-      
       isEnglish = !isEnglish;
       
       if (!isEnglish) {
-        // Switch to PUNJABI
+        // Punjabi
         langSwitch.classList.add('active'); 
         setTimeout(() => { 
             langKnob.textContent = "ੳ"; 
             langKnob.classList.add('punjabi-font'); 
         }, 100); 
-
       } else {
-        // Switch to ENGLISH
+        // English
         langSwitch.classList.remove('active'); 
         setTimeout(() => { 
             langKnob.textContent = "A"; 
@@ -384,6 +416,33 @@
       }, 300);
     }
 
+    // 2. Ripple Effect Logic
+    const links = document.querySelectorAll('.link');
+    links.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        let ripple = document.createElement('span');
+        let rect = btn.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
+        
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple');
+        
+        let size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.marginLeft = -size/2 + 'px';
+        ripple.style.marginTop = -size/2 + 'px';
+
+        btn.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+
+    // 3. Fullscreen logic
     document.addEventListener('click', function(e) {
       if(e.target.closest('a') || e.target.closest('.toggle-switch')) return;
 
