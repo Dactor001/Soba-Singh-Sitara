@@ -43,7 +43,6 @@
 
     .card {
       max-width: 420px;
-      /* Compact padding */
       padding: 20px 20px; 
       text-align: center;
       width: 100%;
@@ -63,10 +62,8 @@
       width: 140px;
       height: 140px;
       object-fit: cover;
-      
-      /* Position maintained: approx 0.5mm RIGHT, 2mm UP */
+      /* Position: approx 0.5mm RIGHT, 2mm UP */
       object-position: calc(50% + 2px) -8px; 
-      
       border-radius: 50%;
       border: 3px solid #973222; 
       animation: border-pulse 3s infinite;
@@ -145,7 +142,6 @@
       transition: all 0.3s ease;
     }
 
-    /* The sliding knob (Circle) */
     .toggle-knob {
       position: absolute;
       top: 1px;
@@ -166,7 +162,6 @@
       line-height: 1;
     }
 
-    /* State when Active (Punjabi) */
     .toggle-switch.active {
       border-color: #555;
       background-color: #2a2a2a;
@@ -176,13 +171,12 @@
       transform: translateX(16px); 
     }
     
-    /* SPECIAL CLASS FOR PUNJABI FONT SIZE */
     .toggle-knob.punjabi-font {
       font-size: 13px !important;
       padding-bottom: 2px;
     }
 
-    /* Links - 100% White Outline */
+    /* Links */
     .link {
       display: flex;
       align-items: center;
@@ -190,10 +184,7 @@
       gap: 12px;
       text-decoration: none;
       background-color: #000000;
-      
-      /* CHANGED: Border is now 100% white */
-      border: 1px solid #ffffff; 
-      
+      border: 1px solid #ffffff; /* 100% White Border */
       color: #ffffff;
       padding: 14px; 
       margin-bottom: 10px; 
@@ -204,6 +195,7 @@
       animation: fadeInUp 0.8s ease backwards;
     }
 
+    /* Staggered entry animation */
     .link:nth-child(3) { animation-delay: 0.1s; }
     .link:nth-child(4) { animation-delay: 0.2s; }
     .link:nth-child(5) { animation-delay: 0.3s; }
@@ -216,25 +208,45 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* --- ICON ANIMATION STYLES --- */
+    
+    /* 1. Continuous Breathing Animation */
+    @keyframes icon-breathe {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); } /* Slightly bigger */
+      100% { transform: scale(1); }
+    }
+
     .link i { 
       color: #973222; 
-      font-size: 18px; 
+      font-size: 20px; 
       position: absolute;
       left: 20px;
-      transition: transform 0.3s ease;
+      
+      /* Continuous Animation applied here */
+      animation: icon-breathe 3s infinite ease-in-out;
+      
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
       z-index: 10;
     }
     
     .link span { position: relative; z-index: 5; }
 
+    /* Hover Effects */
     .link:hover { 
-      /* On hover, change border to the accent red color */
       border-color: #973222;
       background-color: #0a0a0a;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(151, 50, 34, 0.4);
     }
-    .link:hover i { color: #ffffff; }
+    
+    /* 2. Spin on Hover */
+    .link:hover i { 
+      color: #ffffff; 
+      /* Stop breathing and Spin 360 degrees */
+      animation: none; 
+      transform: rotate(360deg) scale(1.2);
+    }
 
     /* Footer */
     .footer {
@@ -335,7 +347,6 @@
     const textPa = "ਢਾਡੀ ਜਥਾ ਸੋਭਾ ਸਿੰਘ<br>ਸਿਤਾਰਾ";
 
     function toggleLanguage() {
-      // Fade title out slightly
       titleElement.classList.add('switching');
       
       isEnglish = !isEnglish;
@@ -357,7 +368,6 @@
         }, 100);
       }
 
-      // Change Title text after fade out
       setTimeout(() => {
         if (!isEnglish) {
           titleElement.innerHTML = textPa;
@@ -368,7 +378,6 @@
       }, 300);
     }
 
-    // Fullscreen logic
     document.addEventListener('click', function(e) {
       if(e.target.closest('a') || e.target.closest('.toggle-switch')) return;
 
