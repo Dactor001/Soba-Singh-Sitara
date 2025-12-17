@@ -43,7 +43,7 @@
 
     .card {
       max-width: 420px;
-      /* Reduced padding for compactness */
+      /* Compact padding */
       padding: 20px 20px; 
       text-align: center;
       width: 100%;
@@ -51,18 +51,23 @@
       z-index: 1;
     }
     
-    /* Profile Picture Styling */
+    /* Profile Picture Container - Restored to original position */
     .profile-pic-container {
       display: flex;
       justify-content: center;
-      /* Reduced bottom margin significantly */
       margin-bottom: 15px; 
+      /* Removed the negative margin so the circle stays in place */
+      margin-top: 0; 
     }
 
     .profile-pic {
       width: 140px;
       height: 140px;
       object-fit: cover;
+      
+      /* KEY CHANGE: Moves the image content UP by 35px inside the circle */
+      object-position: center -35px; 
+      
       border-radius: 50%;
       border: 3px solid #973222; 
       animation: border-pulse 3s infinite;
@@ -78,12 +83,10 @@
 
     /* Title Styling */
     .title-container {
-      /* Reduced min-height to pull things up */
       min-height: 70px; 
       display: flex;
       align-items: center;
       justify-content: center;
-      /* Removed bottom margin */
       margin-bottom: 0px; 
     }
 
@@ -116,7 +119,6 @@
     .subtitle { 
       font-size: 13px; 
       opacity: 0.8; 
-      /* Very tight margin to bring toggle button closer */
       margin-bottom: 4px; 
       font-weight: 300;
       letter-spacing: 1px;
@@ -128,7 +130,6 @@
     .lang-switch-wrapper {
       display: flex;
       justify-content: center;
-      /* Reduced margin to bring links closer */
       margin-bottom: 15px; 
       height: 20px;
       position: relative;
@@ -192,7 +193,6 @@
       background-color: #000000;
       border: 1px solid #333333;
       color: #ffffff;
-      /* Reduced padding and margin for compactness */
       padding: 14px; 
       margin-bottom: 10px; 
       border-radius: 50px; 
@@ -216,7 +216,7 @@
 
     .link i { 
       color: #973222; 
-      font-size: 18px; /* Slightly smaller icon to match compact look */
+      font-size: 18px; 
       position: absolute;
       left: 20px;
       transition: transform 0.3s ease;
@@ -235,7 +235,6 @@
 
     /* Footer */
     .footer {
-      /* Reduced top margin */
       margin-top: 25px; 
       font-size: 12px;
       letter-spacing: 1px;
