@@ -51,12 +51,11 @@
       z-index: 1;
     }
     
-    /* Profile Picture Container - Restored to original position */
+    /* Profile Picture Container - Original Position */
     .profile-pic-container {
       display: flex;
       justify-content: center;
       margin-bottom: 15px; 
-      /* Removed the negative margin so the circle stays in place */
       margin-top: 0; 
     }
 
@@ -65,8 +64,8 @@
       height: 140px;
       object-fit: cover;
       
-      /* KEY CHANGE: Moves the image content UP by 35px inside the circle */
-      object-position: center -35px; 
+      /* KEY CHANGE: Moves the image content UP by just 4px (approx 1mm) */
+      object-position: center -4px; 
       
       border-radius: 50%;
       border: 3px solid #973222; 
@@ -328,7 +327,6 @@
 
     let isEnglish = true;
 
-    // Updated Line Breaks as requested
     const textEn = "Dhadi Jatha Soba Singh<br>Sitara";
     const textPa = "ਢਾਡੀ ਜਥਾ ਸੋਭਾ ਸਿੰਘ<br>ਸਿਤਾਰਾ";
 
