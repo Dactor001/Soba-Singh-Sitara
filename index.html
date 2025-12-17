@@ -208,13 +208,21 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* --- ICON ANIMATION STYLES --- */
+    /* --- NEW ANIMATIONS --- */
     
-    /* 1. Continuous Breathing Animation */
-    @keyframes icon-breathe {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.15); } /* Slightly bigger */
-      100% { transform: scale(1); }
+    /* 1. Floating Animation (Idle) */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); } /* Moves up slightly */
+    }
+
+    /* 2. Jelly Pop Animation (Hover) */
+    @keyframes jelly {
+      0% { transform: scale(1, 1); }
+      25% { transform: scale(1.25, 0.75); }
+      50% { transform: scale(0.75, 1.25); }
+      75% { transform: scale(1.15, 0.85); }
+      100% { transform: scale(1, 1); }
     }
 
     .link i { 
@@ -223,10 +231,9 @@
       position: absolute;
       left: 20px;
       
-      /* Continuous Animation applied here */
-      animation: icon-breathe 3s infinite ease-in-out;
+      /* Apply Floating Animation */
+      animation: float 3s ease-in-out infinite;
       
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
       z-index: 10;
     }
     
@@ -240,12 +247,11 @@
       box-shadow: 0 4px 12px rgba(151, 50, 34, 0.4);
     }
     
-    /* 2. Spin on Hover */
+    /* Change animation on Hover */
     .link:hover i { 
       color: #ffffff; 
-      /* Stop breathing and Spin 360 degrees */
-      animation: none; 
-      transform: rotate(360deg) scale(1.2);
+      /* Switch to Jelly animation once */
+      animation: jelly 0.6s ease-in-out both; 
     }
 
     /* Footer */
