@@ -122,15 +122,18 @@
       color: #ffffff;
     }
 
-    /* --- MICRO TOGGLE SWITCH --- */
-    .lang-switch-wrapper {
+    /* --- CONTROLS CONTAINER (Holds both switches) --- */
+    .controls-wrapper {
       display: flex;
       justify-content: center;
+      align-items: center;
+      gap: 15px; /* Space between language and music toggle */
       margin-bottom: 15px; 
       height: 20px;
       position: relative;
     }
 
+    /* Common Switch Styles */
     .toggle-switch {
       position: relative;
       width: 36px;  
@@ -171,9 +174,15 @@
       transform: translateX(16px); 
     }
     
+    /* Specific styles for Language Knob */
     .toggle-knob.punjabi-font {
       font-size: 13px !important;
       padding-bottom: 2px;
+    }
+
+    /* Specific styles for Music Knob Icons */
+    .toggle-knob i {
+      font-size: 8px; /* Small icon size */
     }
 
     /* --- PERMANENT JELLY ANIMATION --- */
@@ -209,7 +218,7 @@
       -webkit-tap-highlight-color: transparent; 
     }
 
-    /* Main Icon Animation */
+    /* Icon Animation */
     .link i { 
       color: #973222; 
       font-size: 20px; 
@@ -301,14 +310,20 @@
     /* Footer Icon Animation */
     .footer i { 
       color: #973222; 
-      display: inline-block; /* Required for transform */
-      animation: jelly-infinite 3s infinite ease-in-out; /* Apply Jelly Animation */
+      display: inline-block;
+      animation: jelly-infinite 3s infinite ease-in-out; 
     }
   </style>
 </head>
 <body>
   
   <div class="glow-effect"></div>
+  
+  <!-- Hidden Audio Player -->
+  <!-- MAKE SURE TO UPLOAD music.mp3 TO GITHUB -->
+  <audio id="bgAudio" loop>
+    <source src="music.mp3" type="audio/mp3">
+  </audio>
 
   <div class="card">
     
@@ -323,11 +338,21 @@
     
     <div class="subtitle">Official Social Links</div>
 
-    <!-- Micro Sliding Switch -->
-    <div class="lang-switch-wrapper">
-      <div class="toggle-switch" onclick="toggleLanguage()" id="langSwitch">
+    <!-- Controls Wrapper: Language & Music Switches -->
+    <div class="controls-wrapper">
+      
+      <!-- 1. Language Switch -->
+      <div class="toggle-switch" onclick="toggleLanguage()" id="langSwitch" title="Switch Language">
         <div class="toggle-knob" id="langKnob">A</div>
       </div>
+
+      <!-- 2. Music Switch -->
+      <div class="toggle-switch" onclick="toggleMusic()" id="musicSwitch" title="Play/Pause Music">
+        <div class="toggle-knob" id="musicKnob">
+          <i class="fas fa-play"></i>
+        </div>
+      </div>
+
     </div>
     
     <!-- Link 1 -->
@@ -416,7 +441,41 @@
       }, 300);
     }
 
-    // 2. Ripple Effect Logic
+    // 2. Music Toggle Logic
+    const musicSwitch = document.getElementById('musicSwitch');
+    const musicKnob = document.getElementById('musicKnob');
+    const bgAudio = document.getElementById('bgAudio');
+    let isMusicPlaying = false;
+
+    function toggleMusic() {
+      if (!isMusicPlaying) {
+        // Play Music
+        bgAudio.play().catch(error => {
+          console.log("Audio play failed, user interaction needed first:", error);
+        });
+        musicSwitch.classList.add('active'); // Slide Right
+        
+        // Change icon to Pause after slide starts
+        setTimeout(() => {
+          musicKnob.innerHTML = '<i class="fas fa-pause"></i>';
+        }, 100);
+        
+        isMusicPlaying = true;
+      } else {
+        // Pause Music
+        bgAudio.pause();
+        musicSwitch.classList.remove('active'); // Slide Left
+        
+        // Change icon to Play after slide starts
+        setTimeout(() => {
+          musicKnob.innerHTML = '<i class="fas fa-play"></i>';
+        }, 100);
+        
+        isMusicPlaying = false;
+      }
+    }
+
+    // 3. Ripple Effect Logic
     const links = document.querySelectorAll('.link');
     links.forEach(btn => {
       btn.addEventListener('click', function(e) {
@@ -442,8 +501,9 @@
       });
     });
 
-    // 3. Fullscreen logic
+    // 4. Fullscreen logic
     document.addEventListener('click', function(e) {
+      // Don't trigger fullscreen if clicking links or switches
       if(e.target.closest('a') || e.target.closest('.toggle-switch')) return;
 
       var elem = document.documentElement;
