@@ -11,7 +11,7 @@
     body {
       margin: 0;
       font-family: 'Poppins', 'Noto Sans Gurmukhi', sans-serif;
-      background-color: #000000; /* Pure Black */
+      background-color: #000000;
       color: #ffffff;
       display: flex;
       justify-content: center;
@@ -58,11 +58,16 @@
       margin-top: 0; 
     }
 
+    /* Inner Wrapper for placing the Gallery Icon relative to the pic */
+    .profile-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
     .profile-pic {
       width: 140px;
       height: 140px;
       object-fit: cover;
-      /* Position maintained: approx 0.5mm RIGHT, 2mm UP */
       object-position: calc(50% + 2px) -8px; 
       border-radius: 50%;
       border: 3px solid #973222; 
@@ -75,6 +80,42 @@
       0% { box-shadow: 0 0 0 0 rgba(151, 50, 34, 0.4); }
       70% { box-shadow: 0 0 0 15px rgba(151, 50, 34, 0); }
       100% { box-shadow: 0 0 0 0 rgba(151, 50, 34, 0); }
+    }
+
+    /* Apple-style Gallery Button */
+    .gallery-btn {
+      position: absolute;
+      top: 5px;
+      right: -55px; /* Adjust spacing outside the circle */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      background: rgba(0,0,0,0.5);
+      padding: 5px;
+      border-radius: 8px;
+    }
+    
+    .gallery-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .gallery-btn:active {
+      transform: scale(0.95);
+    }
+
+    .gallery-btn svg {
+      width: 28px;
+      height: 28px;
+      margin-bottom: 4px;
+    }
+
+    .gallery-btn span {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      color: #fff;
     }
 
     /* Title Styling */
@@ -122,12 +163,12 @@
       color: #ffffff;
     }
 
-    /* --- CONTROLS CONTAINER (Holds both switches) --- */
+    /* --- CONTROLS CONTAINER --- */
     .controls-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 15px; /* Space between language and music toggle */
+      gap: 15px; 
       margin-bottom: 15px; 
       height: 20px;
       position: relative;
@@ -174,18 +215,15 @@
       transform: translateX(16px); 
     }
     
-    /* Specific styles for Language Knob */
     .toggle-knob.punjabi-font {
       font-size: 13px !important;
       padding-bottom: 2px;
     }
 
-    /* Specific styles for Music Knob Icons */
     .toggle-knob i {
-      font-size: 8px; /* Small icon size */
+      font-size: 8px; 
     }
 
-    /* --- PERMANENT JELLY ANIMATION --- */
     @keyframes jelly-infinite {
       0% { transform: scale(1, 1); }
       10% { transform: scale(1.25, 0.75); }
@@ -218,7 +256,6 @@
       -webkit-tap-highlight-color: transparent; 
     }
 
-    /* Icon Animation */
     .link i { 
       color: #973222; 
       font-size: 20px; 
@@ -229,7 +266,6 @@
       pointer-events: none; 
     }
     
-    /* Staggered JELLY effect indices 5-10 */
     .link:nth-child(5) i { animation-delay: 0s; }
     .link:nth-child(6) i { animation-delay: 0.2s; }
     .link:nth-child(7) i { animation-delay: 0.4s; }
@@ -237,7 +273,6 @@
     .link:nth-child(9) i { animation-delay: 0.8s; } 
     .link:nth-child(10) i { animation-delay: 1.0s; } 
 
-    /* Staggered ENTRY animation indices 5-10 */
     .link:nth-child(5) { animation-delay: 0.1s; }
     .link:nth-child(6) { animation-delay: 0.2s; }
     .link:nth-child(7) { animation-delay: 0.3s; }
@@ -252,7 +287,6 @@
 
     .link span { position: relative; z-index: 5; pointer-events: none; }
 
-    /* Hover Effects */
     .link:hover { 
       border-color: #973222;
       background-color: #0a0a0a;
@@ -260,14 +294,12 @@
       box-shadow: 0 4px 12px rgba(151, 50, 34, 0.4);
     }
     
-    /* CLICK (Active) Effect */
     .link:active {
       transform: scale(0.96) translateY(-2px); 
       background-color: #111;
       border-color: #973222;
     }
 
-    /* --- RIPPLE ANIMATION --- */
     .ripple {
       position: absolute;
       background: rgba(255, 255, 255, 0.3); 
@@ -284,7 +316,6 @@
       }
     }
 
-    /* Footer */
     .footer {
       margin-top: 25px; 
       font-size: 12px;
@@ -307,11 +338,125 @@
     
     .footer a:hover { opacity: 1; color: #973222; }
     
-    /* Footer Icon Animation */
     .footer i { 
       color: #973222; 
       display: inline-block;
       animation: jelly-infinite 3s infinite ease-in-out; 
+    }
+
+    /* --- GALLERY MODAL STYLING --- */
+    .gallery-modal {
+      display: none; 
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      flex-direction: column;
+      overflow-y: auto;
+      backdrop-filter: blur(5px);
+    }
+
+    .gallery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 25px;
+      background-color: #050505;
+      border-bottom: 1px solid #222;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .gallery-header h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .close-gallery {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-gallery:hover {
+      color: #973222;
+    }
+
+    /* Tabs */
+    .gallery-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 20px 25px;
+      justify-content: center;
+    }
+
+    .tab-btn {
+      background: #111;
+      border: 1px solid #333;
+      color: #ccc;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .tab-btn:hover {
+      background: #222;
+      border-color: #555;
+      color: #fff;
+    }
+
+    .tab-btn.active {
+      background: #973222;
+      border-color: #973222;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(151, 50, 34, 0.4);
+    }
+
+    /* Image Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 15px;
+      padding: 0 25px 40px 25px;
+    }
+
+    .gallery-item {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid #222;
+      background-color: #111;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+      border-color: #973222;
+      z-index: 2;
+    }
+
+    .loader-text {
+      width: 100%;
+      grid-column: 1 / -1;
+      text-align: center;
+      color: #777;
+      font-size: 14px;
+      padding: 20px;
     }
   </style>
 </head>
@@ -319,8 +464,6 @@
   
   <div class="glow-effect"></div>
   
-  <!-- Hidden Audio Player -->
-  <!-- MAKE SURE TO UPLOAD music.mp3 TO GITHUB -->
   <audio id="bgAudio" loop>
     <source src="music.mp3" type="audio/mp3">
   </audio>
@@ -328,8 +471,25 @@
   <div class="card">
     
     <div class="profile-pic-container">
-        <!-- Ensure profile.jpg exists -->
+      <div class="profile-wrapper">
         <img src="profile.jpg" alt="Dhadi Jatha Soba Singh Sitara" class="profile-pic">
+        
+        <div class="gallery-btn" onclick="openGallery()" title="Open Photo Gallery">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(50 50)">
+              <path d="M0,0 C15,-25 35,-25 35,0 C35,15 15,15 0,0" fill="#973222" opacity="0.9" transform="rotate(0)"/>
+              <path d="M0,0 C15,-25 35,-25 35,0 C35,15 15,15 0,0" fill="#fff" opacity="0.7" transform="rotate(45)"/>
+              <path d="M0,0 C15,-25 35,-25 35,0 C35,15 15,15 0,0" fill="#973222" opacity="0.9" transform="rotate(90)"/>
+              <path d="M0,0 C15,-25 35,-25 35,0 C35,15 15,15 0,0" fill="#fff" opacity="0.7" transform="rotate(135)"/>
+              <path d="M0,0 C15,-25 35,-25 35,0 C35,15 15,15 0,0" fill="#973222" opacity="0.9" transform="rotate(180)"/>
+              <path d="M0,0 C15,-25 35,-25 35,0 C35,15 15,15 0,0" fill="#fff" opacity="0.7" transform="rotate(225)"/>
+              <path d="M0,0 C15,-25 35,-25 35,0 C35,15 15,15 0,0" fill="#973222" opacity="0.9" transform="rotate(270)"/>
+              <path d="M0,0 C15,-25 35,-25 35,0 C35,15 15,15 0,0" fill="#fff" opacity="0.7" transform="rotate(315)"/>
+            </g>
+          </svg>
+          <span>Gallery</span>
+        </div>
+      </div>
     </div>
 
     <div class="title-container">
@@ -338,76 +498,69 @@
     
     <div class="subtitle">Official Social Links</div>
 
-    <!-- Controls Wrapper: Language & Music Switches -->
     <div class="controls-wrapper">
-      
-      <!-- 1. Language Switch -->
       <div class="toggle-switch" onclick="toggleLanguage()" id="langSwitch" title="Switch Language">
         <div class="toggle-knob" id="langKnob">A</div>
       </div>
-
-      <!-- 2. Music Switch -->
       <div class="toggle-switch" onclick="toggleMusic()" id="musicSwitch" title="Play/Pause Music">
         <div class="toggle-knob" id="musicKnob">
           <i class="fas fa-play"></i>
         </div>
       </div>
-
     </div>
     
-    <!-- Link 1 -->
     <a class="link" href="https://youtube.com/@sobasinghsitara">
-      <i class="fab fa-youtube"></i>
-      <span>YouTube</span>
+      <i class="fab fa-youtube"></i><span>YouTube</span>
     </a>
-    
-    <!-- Link 2 -->
     <a class="link" href="https://www.facebook.com/share/1DUBKj8yUk/">
-      <i class="fab fa-facebook"></i>
-      <span>Facebook</span>
+      <i class="fab fa-facebook"></i><span>Facebook</span>
     </a>
-    
-    <!-- Link 3 -->
     <a class="link" href="https://www.instagram.com/sobasinghsitara">
-      <i class="fab fa-instagram"></i>
-      <span>Instagram</span>
+      <i class="fab fa-instagram"></i><span>Instagram</span>
     </a>
-    
-    <!-- Link 4 -->
     <a class="link" href="https://wa.me/919888861222">
-      <i class="fab fa-whatsapp"></i>
-      <span>WhatsApp</span>
+      <i class="fab fa-whatsapp"></i><span>WhatsApp</span>
     </a>
-    
-    <!-- Link 5 -->
     <a class="link" href="https://www.snapchat.com/add/soba.singh">
-      <i class="fab fa-snapchat"></i>
-      <span>Snapchat</span>
+      <i class="fab fa-snapchat"></i><span>Snapchat</span>
     </a>
-    
-    <!-- Link 6 -->
     <a class="link" href="https://open.spotify.com/artist/5bEZhDOR9jL5FhLNYaWDqv">
-      <i class="fab fa-spotify"></i>
-      <span>Spotify</span>
+      <i class="fab fa-spotify"></i><span>Spotify</span>
     </a>
 
     <div class="footer">
       <a href="https://www.instagram.com/dactor.in/" target="_blank">
-        <i class="fab fa-instagram"></i> 
-        <span>Made by Dactor</span>
+        <i class="fab fa-instagram"></i><span>Made by Dactor</span>
       </a>
     </div>
 
   </div>
 
+  <div class="gallery-modal" id="galleryModal">
+    <div class="gallery-header">
+      <h2>Photo Gallery</h2>
+      <button class="close-gallery" onclick="closeGallery()"><i class="fas fa-times"></i></button>
+    </div>
+    
+    <div class="gallery-tabs">
+      <button class="tab-btn active" id="tab-1" onclick="loadSection(1)">Shows</button>
+      <button class="tab-btn" id="tab-2" onclick="loadSection(2)">Achievements</button>
+      <button class="tab-btn" id="tab-3" onclick="loadSection(3)">With Team</button>
+      <button class="tab-btn" id="tab-4" onclick="loadSection(4)">Random</button>
+      <button class="tab-btn" id="tab-5" onclick="loadSection(5)">Projects</button>
+      <button class="tab-btn" id="tab-6" onclick="loadSection(6)">Tour</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      </div>
+  </div>
+
   <script>
-    // 1. Language Toggle Logic
+    // --- 1. Language Toggle Logic ---
     const titleElement = document.getElementById('mainTitle');
     const langSwitch = document.getElementById('langSwitch');
     const langKnob = document.getElementById('langKnob');
-
     let isEnglish = true;
-
     const textEn = "Dhadi Jatha Soba Singh<br>Sitara";
     const textPa = "ਢਾਡੀ ਜਥਾ ਸੋਭਾ ਸਿੰਘ<br>ਸਿਤਾਰਾ";
 
@@ -416,14 +569,12 @@
       isEnglish = !isEnglish;
       
       if (!isEnglish) {
-        // Punjabi
         langSwitch.classList.add('active'); 
         setTimeout(() => { 
             langKnob.textContent = "ੳ"; 
             langKnob.classList.add('punjabi-font'); 
         }, 100); 
       } else {
-        // English
         langSwitch.classList.remove('active'); 
         setTimeout(() => { 
             langKnob.textContent = "A"; 
@@ -432,16 +583,12 @@
       }
 
       setTimeout(() => {
-        if (!isEnglish) {
-          titleElement.innerHTML = textPa;
-        } else {
-          titleElement.innerHTML = textEn;
-        }
+        titleElement.innerHTML = (!isEnglish) ? textPa : textEn;
         titleElement.classList.remove('switching');
       }, 300);
     }
 
-    // 2. Music Toggle Logic
+    // --- 2. Music Toggle Logic ---
     const musicSwitch = document.getElementById('musicSwitch');
     const musicKnob = document.getElementById('musicKnob');
     const bgAudio = document.getElementById('bgAudio');
@@ -449,33 +596,19 @@
 
     function toggleMusic() {
       if (!isMusicPlaying) {
-        // Play Music
-        bgAudio.play().catch(error => {
-          console.log("Audio play failed, user interaction needed first:", error);
-        });
-        musicSwitch.classList.add('active'); // Slide Right
-        
-        // Change icon to Pause after slide starts
-        setTimeout(() => {
-          musicKnob.innerHTML = '<i class="fas fa-pause"></i>';
-        }, 100);
-        
+        bgAudio.play().catch(error => console.log("Audio play failed:", error));
+        musicSwitch.classList.add('active');
+        setTimeout(() => { musicKnob.innerHTML = '<i class="fas fa-pause"></i>'; }, 100);
         isMusicPlaying = true;
       } else {
-        // Pause Music
         bgAudio.pause();
-        musicSwitch.classList.remove('active'); // Slide Left
-        
-        // Change icon to Play after slide starts
-        setTimeout(() => {
-          musicKnob.innerHTML = '<i class="fas fa-play"></i>';
-        }, 100);
-        
+        musicSwitch.classList.remove('active');
+        setTimeout(() => { musicKnob.innerHTML = '<i class="fas fa-play"></i>'; }, 100);
         isMusicPlaying = false;
       }
     }
 
-    // 3. Ripple Effect Logic
+    // --- 3. Ripple Effect Logic ---
     const links = document.querySelectorAll('.link');
     links.forEach(btn => {
       btn.addEventListener('click', function(e) {
@@ -483,39 +616,104 @@
         let rect = btn.getBoundingClientRect();
         let x = e.clientX - rect.left;
         let y = e.clientY - rect.top;
-        
         ripple.style.left = x + 'px';
         ripple.style.top = y + 'px';
         ripple.classList.add('ripple');
-        
         let size = Math.max(rect.width, rect.height);
         ripple.style.width = ripple.style.height = size + 'px';
         ripple.style.marginLeft = -size/2 + 'px';
         ripple.style.marginTop = -size/2 + 'px';
-
         btn.appendChild(ripple);
-
-        setTimeout(() => {
-          ripple.remove();
-        }, 600);
+        setTimeout(() => { ripple.remove(); }, 600);
       });
     });
 
-    // 4. Fullscreen logic
+    // --- 4. Fullscreen logic ---
     document.addEventListener('click', function(e) {
-      // Don't trigger fullscreen if clicking links or switches
-      if(e.target.closest('a') || e.target.closest('.toggle-switch')) return;
-
+      if(e.target.closest('a') || e.target.closest('.toggle-switch') || e.target.closest('.gallery-btn') || e.target.closest('.gallery-modal')) return;
       var elem = document.documentElement;
-      if (!document.fullscreenElement && !document.mozFullScreenElement &&
-          !document.webkitFullscreenElement && !document.msFullscreenElement) {
-        if (elem.requestFullscreen) {
-          elem.requestFullscreen().catch(err => console.log(err));
-        }
+      if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+        if (elem.requestFullscreen) { elem.requestFullscreen().catch(err => console.log(err)); }
       }
     });
+
+    // --- 5. GALLERY LOGIC ---
+    let currentSection = 1;
+    const loadedImagesCache = {}; // Caches successful images to avoid reloading
+
+    function openGallery() {
+      document.getElementById('galleryModal').style.display = 'flex';
+      document.body.style.overflow = 'hidden'; // stop background scroll
+      loadSection(1);
+    }
+
+    function closeGallery() {
+      document.getElementById('galleryModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    function loadSection(sectionId) {
+      currentSection = sectionId;
+      
+      // Update UI Tabs
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('tab-' + sectionId).classList.add('active');
+
+      const grid = document.getElementById('galleryGrid');
+      grid.innerHTML = '<div class="loader-text">Loading photos...</div>';
+
+      // Load from cache if already fetched
+      if (loadedImagesCache[sectionId]) {
+        renderGallery(loadedImagesCache[sectionId]);
+        return;
+      }
+
+      // Auto-fetch logic based on your naming convention (sectionX.Y.jpg)
+      let successfulImages = [];
+      let photoIndex = 1;
+
+      function checkNextImage() {
+        let img = new Image();
+        let imgName = `section${sectionId}.${photoIndex}.jpg`; // Expecting .jpg extension
+
+        img.onload = function() {
+          successfulImages.push(imgName);
+          photoIndex++;
+          checkNextImage(); // Try next number
+        };
+
+        img.onerror = function() {
+          // As soon as a number fails (404), stop searching and render what we have
+          loadedImagesCache[sectionId] = successfulImages;
+          renderGallery(successfulImages);
+        };
+
+        img.src = imgName;
+      }
+
+      checkNextImage(); // Start the loop
+    }
+
+    function renderGallery(imageArray) {
+      const grid = document.getElementById('galleryGrid');
+      grid.innerHTML = '';
+
+      if (imageArray.length === 0) {
+        grid.innerHTML = '<div class="loader-text">No photos uploaded in this section yet.</div>';
+        return;
+      }
+
+      imageArray.forEach(src => {
+        let imgEl = document.createElement('img');
+        imgEl.src = src;
+        imgEl.className = 'gallery-item';
+        
+        // Optional: click photo to view full size in new tab
+        imgEl.onclick = function() { window.open(src, '_blank'); };
+        
+        grid.appendChild(imgEl);
+      });
+    }
   </script>
 </body>
 </html>
-
-
